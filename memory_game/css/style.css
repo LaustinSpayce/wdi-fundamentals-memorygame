@@ -5,12 +5,12 @@ body {
 
 a {
 	text-decoration: none;
-	color: #00A6B3;
+	color: #3b7740;
 	border-bottom: 2px solid transparent;
 }
 
 a:hover {
-	border-bottom-color: white;
+	border-bottom-color: #3b7740;
 }
 
 nav a {
@@ -23,6 +23,10 @@ nav a {
 	color: #FFFFFF;
 }
 
+nav a:hover {
+	border-bottom-color: white;
+}
+
 button {
 	font-family: "Raleway", sans-serif;
 	letter-spacing: 1px;
@@ -30,14 +34,14 @@ button {
 	font-size: 18px;
 	text-transform: uppercase;
 	margin: 0 20px 10px 20px;
-	background-color: #00A6B3;
+	background-color: #499550;
 	color: #FFFFFF;
 	padding: 20px;
 }
 
 h1 {
 	font-family: "Raleway", sans-serif;
-	color: #0D2C40;
+	color: #FFFFFF;
 	letter-spacing: 1px;
 	font-weight: 400;
 	font-size: 45px;
@@ -47,7 +51,7 @@ h1 {
 
 h2 {
 	font-family: "Raleway", sans-serif;
-	color: #0D2C40;
+	color: #3b7740;
 	letter-spacing: 1px;
 	font-weight: 600;
 	font-size: 20px;
@@ -61,13 +65,13 @@ p {
 }
 
 header {
-	background-color: #F15B31;
+	background-color: #d14140;
 	color: #FFFFFF;
 	padding: 30px 20px;
 }
 
 nav {
-	background-color: #00A6B3;
+	background-color: #3b7740;
 	color: #FFFFFF;
 	padding: 20px 0;
 }
@@ -78,17 +82,24 @@ main {
 }
 
 img {
-	margin: 40px 8px;
+	margin: 20px 8px;
 }
 
 footer {
 	text-transform: uppercase;
 	padding: 0 20px;
-	background-color: #0D2C40;
+	background-color: #d14140;
 	color: white;
 	font-size: 14px;
 	letter-spacing: .08em;
 	font-weight: 500;
+}
+
+footer a {
+	color: white;
+}
+footer a:hover {
+	border-bottom-color: white;
 }
 
 .copyright {
@@ -102,7 +113,7 @@ footer {
 }
 
 .name {
-	color: #F15831;
+	color: #000000;
 	font-weight: 700;
 }
 

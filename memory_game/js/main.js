@@ -4,24 +4,57 @@ var cards = [
 	{
 		rank: "queen",
 		suit: "hearts",
-		cardImage: "images/queen-of-hearts.png"
+		cardImage: "images/cardHeartsQ.png"
 	},
 	{
 		rank: "queen",
-		suit: "diamonds",
-		cardImage: "images/queen-of-diamonds.png"
+		suit: "spades",
+		cardImage: "images/cardSpadesQ.png"
 	},
 	{
 		rank: "king",
 		suit: "hearts",
-		cardImage: "images/king-of-hearts.png"
+		cardImage: "images/cardHeartsK.png"
 	},
 	{
 		rank: "king",
-		suit: "diamonds",
-		cardImage: "images/king-of-diamonds.png"
-	}
+		suit: "spades",
+		cardImage: "images/cardSpadesK.png"
+	},
+	{
+		rank: "jack",
+		suit: "spades",
+		cardImage: "images/cardSpadesJ.png"
+	},
+	{
+		rank: "jack",
+		suit: "hearts",
+		cardImage: "images/cardHeartsJ.png"
+	},
+	{
+		rank: "ace",
+		suit: "hearts",
+		cardImage: "images/cardHeartsA.png"
+	},
+	{
+		rank: "ace",
+		suit: "spades",
+		cardImage: "images/cardSpadesA.png"
+	},
+	{
+		rank: "10",
+		suit: "hearts",
+		cardImage: "images/cardHearts10.png"
+	},
+	{
+		rank: "10",
+		suit: "spades",
+		cardImage: "images/cardSpades10.png"
+	},	
 ];
+
+
+
 
 var score = 0;
 
@@ -30,6 +63,9 @@ var cardsInPlay = [];
 
 // An array of complete card details revealed rank, suit, cardImage and cardId.
 const revealedCards = []; 
+
+const scorePlus = 5;
+const scoreDeduct = 1;
 
 var scoreText = document.getElementById('score-text');
 
@@ -62,13 +98,15 @@ function checkForMatch() {
 		if (cardsInPlay[0] === cardsInPlay[1]) {
 			alert("Success! " + nameOfCard(revealedCards[revealedCards.length-2]) + 
 				" matches " + nameOfCard(revealedCards[revealedCards.length-1]));
-			score++;
+			score += scorePlus;
 			updateScore();
 		}
 		else {
 			alert("Sorry! " + nameOfCard(revealedCards[revealedCards.length-2]) + 
 				" does not match " + nameOfCard(revealedCards[revealedCards.length-1]));
+			score -= scoreDeduct;
 			unflipCards();
+			updateScore();
 		}
 	}
 }
@@ -78,13 +116,34 @@ var createBoard = function () {
 		var cardElement = document.createElement('img');
 		cardElement.setAttribute("src", "images/back.png");
 		cardElement.setAttribute("data-id", i);
+		cardElement.setAttribute("alt", "Card Back");
 		cardElement.addEventListener('click', flipCard);
 		document.getElementById('game-board').appendChild(cardElement);
 	}
 }
 
 var resetGame = function () {
-	location.reload();
+	// location.reload();
+	score = 0;
+	document.getElementById('game-board').innerHTML = "";
+	while (cardsInPlay.length > 0) {
+		cardsInPlay.pop();
+	}
+	while (revealedCards.length > 0) {
+		revealedCards.pop();
+	}
+	updateScore();
+	shuffleCards(cards);
+	createBoard();
+}
+
+var unflipOneCard = function (card) {
+	var dataId = card.cardId;
+	// Select an image with the data-id matching the card id. 
+	// And set the image to the card back
+	var cardElement = document.querySelector("img[data-id='" + dataId + "']" );
+	cardElement.setAttribute("src", "images/back.png");
+	cardElement.setAttribute("alt", "Card Back");
 }
 
 var unflipCards = function () {
@@ -92,11 +151,7 @@ var unflipCards = function () {
 	for (var i = 0; i < iterations; i++) {
 		cardsInPlay.pop();
 		var cardToUnflip = revealedCards.pop();
-		var dataId = cardToUnflip.cardId;
-		// Select an image with the data-id matching the card id. 
-		// And set the image to the card back
-		document.querySelector("img[data-id='" + dataId + "']" ).setAttribute("src", 
-			"images/back.png");
+		unflipOneCard(cardToUnflip);
 	}
 }
 
@@ -130,7 +185,8 @@ function flipCard() {
 	revealedCards.push(revealedCard);
 	console.log(revealedCards);
 	this.setAttribute('src', cards[cardId].cardImage);
-	checkForMatch();
+	this.setAttribute('alt', nameOfCard(cards[cardId]));
+	setTimeout(checkForMatch, 250);
 }
 
 var endGame = function () {
