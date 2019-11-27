@@ -23,6 +23,18 @@ nav a {
 	color: #FFFFFF;
 }
 
+button {
+	font-family: "Raleway", sans-serif;
+	letter-spacing: 1px;
+	font-weight: 600;
+	font-size: 18px;
+	text-transform: uppercase;
+	margin: 0 20px 10px 20px;
+	background-color: #00A6B3;
+	color: #FFFFFF;
+	padding: 20px;
+}
+
 h1 {
 	font-family: "Raleway", sans-serif;
 	color: #0D2C40;
