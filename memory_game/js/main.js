@@ -61,7 +61,7 @@ function checkForMatch() {
 	if (cardsInPlay.length === 2) {
 		if (cardsInPlay[0] === cardsInPlay[1]) {
 			alert("Success! " + nameOfCard(revealedCards[revealedCards.length-2]) + 
-				" matches " + nameOfCard(revealedCards[revealedCards.length-1]))
+				" matches " + nameOfCard(revealedCards[revealedCards.length-1]));
 			score++;
 			updateScore();
 		}
@@ -96,7 +96,7 @@ var unflipCards = function () {
 		// Select an image with the data-id matching the card id. 
 		// And set the image to the card back
 		document.querySelector("img[data-id='" + dataId + "']" ).setAttribute("src", 
-			"images/back.png")
+			"images/back.png");
 	}
 }
 
