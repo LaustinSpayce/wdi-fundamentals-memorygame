@@ -56,10 +56,10 @@ var cards = [
 
 
 
-var score = 0;
+let score = 0;
 
 // An array of cards in play's Id's
-var cardsInPlay = [];
+let cardsInPlay = [];
 
 // An array of complete card details revealed rank, suit, cardImage and cardId.
 const revealedCards = []; 
@@ -67,15 +67,15 @@ const revealedCards = [];
 const scorePlus = 5;
 const scoreDeduct = 1;
 
-var scoreText = document.getElementById('score-text');
+const scoreText = document.getElementById('score-text');
 
-var resetButton = document.getElementById('reset-button');
+const resetButton = document.getElementById('reset-button');
 
 function shuffleCards(array) {
 	// Shuffle the cards
 	// Using Fisher-Yates Algorithm from
 	// https://medium.com/@nitinpatel_20236/how-to-shuffle-correctly-shuffle-an-array-in-javascript-15ea3f84bfb
-	for (var i = array.length - 1; i > 0; i--) {
+	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * i);
 		const temp = array[i];
 		array[i] = array[j];
@@ -95,15 +95,15 @@ function updateScore() {
 
 function checkForMatch() {
 	if (cardsInPlay.length === 2) {
+		let card1 = nameOfCard(revealedCards[revealedCards.length-2]);
+		let card2 = nameOfCard(revealedCards[revealedCards.length-1]);
 		if (cardsInPlay[0] === cardsInPlay[1]) {
-			alert("Success! " + nameOfCard(revealedCards[revealedCards.length-2]) + 
-				" matches " + nameOfCard(revealedCards[revealedCards.length-1]));
+			alert(`Success! ${card1} matches ${card2}`);
 			score += scorePlus;
 			updateScore();
 		}
 		else {
-			alert("Sorry! " + nameOfCard(revealedCards[revealedCards.length-2]) + 
-				" does not match " + nameOfCard(revealedCards[revealedCards.length-1]));
+			alert(`Sorry! ${card1} does not match ${card2}.`);
 			score -= scoreDeduct;
 			unflipCards();
 			updateScore();
@@ -138,10 +138,10 @@ var resetGame = function () {
 }
 
 var unflipOneCard = function (card) {
-	var dataId = card.cardId;
+	let dataId = card.cardId;
 	// Select an image with the data-id matching the card id. 
 	// And set the image to the card back
-	var cardElement = document.querySelector("img[data-id='" + dataId + "']" );
+	let cardElement = document.querySelector("img[data-id='" + dataId + "']" );
 	cardElement.setAttribute("src", "images/back.png");
 	cardElement.setAttribute("alt", "Card Back");
 }
@@ -160,8 +160,8 @@ var unflipCards = function () {
 // Returns true if picked.
 var checkPicked = function (inputCard) {
 	for (var i = 0; i < revealedCards.length; i++) {
-		if (revealedCards[i].cardId == inputCard.cardId) {
-			console.log(nameOfCard(inputCard) + " already picked.")
+		if (revealedCards[i].cardId === inputCard.cardId) {
+			console.log(nameOfCard(inputCard) + " already picked.");
 			return true;
 		}
 	}
@@ -190,8 +190,7 @@ function flipCard() {
 }
 
 var endGame = function () {
-	alert("Congratulations, you finished the game with a score of " + score + 
-		". Click Reset Game to play again.");
+	alert(`Congratulations, you finished the game with a score of ${score}. Click Reset Game to play again.`);
 }
 
 resetButton.addEventListener('click', resetGame);
