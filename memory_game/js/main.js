@@ -202,6 +202,9 @@ var endGame = function () {
 	alert(`Congratulations, you finished the game with a score of ${score}. Click Reset Game to play again.`);
 }
 
+document.getElementById('points-gained').textContent = scorePlus;
+document.getElementById('points-lost').textContent = scoreDeduct;
+
 resetButton.addEventListener('click', resetGame);
 cards = shuffleCards(cards);
 createBoard();
