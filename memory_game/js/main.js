@@ -1,6 +1,6 @@
 console.log("Up and running!");
 
-var cards = [
+let cards = [
 	{
 		rank: "queen",
 		suit: "hearts",
@@ -94,6 +94,13 @@ function updateScore() {
 }
 
 function checkForMatch() {
+	// In case there are more than 2 cards flipped over for some reason.
+	while (cardsInPlay.length > 2) {
+		cardsInPlay.pop();
+		let cardToUnflip = revealedCards.pop();
+		unflipOneCard(cardToUnflip);
+	}
+
 	if (cardsInPlay.length === 2) {
 		let card1 = nameOfCard(revealedCards[revealedCards.length-2]);
 		let card2 = nameOfCard(revealedCards[revealedCards.length-1]);
@@ -112,8 +119,8 @@ function checkForMatch() {
 }
 
 var createBoard = function () {
-	for (var i = 0; i < cards.length; i++) {
-		var cardElement = document.createElement('img');
+	for (let i = 0; i < cards.length; i++) {
+		let cardElement = document.createElement('img');
 		cardElement.setAttribute("src", "images/back.png");
 		cardElement.setAttribute("data-id", i);
 		cardElement.setAttribute("alt", "Card Back");
@@ -133,7 +140,7 @@ var resetGame = function () {
 		revealedCards.pop();
 	}
 	updateScore();
-	shuffleCards(cards);
+	cards = shuffleCards(cards);
 	createBoard();
 }
 
@@ -147,10 +154,10 @@ var unflipOneCard = function (card) {
 }
 
 var unflipCards = function () {
-	var iterations = cardsInPlay.length;
-	for (var i = 0; i < iterations; i++) {
+	let iterations = cardsInPlay.length;
+	for (let i = 0; i < iterations; i++) {
 		cardsInPlay.pop();
-		var cardToUnflip = revealedCards.pop();
+		let cardToUnflip = revealedCards.pop();
 		unflipOneCard(cardToUnflip);
 	}
 }
@@ -159,7 +166,7 @@ var unflipCards = function () {
 // Each card has an id from its initial position in the cards array.
 // Returns true if picked.
 var checkPicked = function (inputCard) {
-	for (var i = 0; i < revealedCards.length; i++) {
+	for (let i = 0; i < revealedCards.length; i++) {
 		if (revealedCards[i].cardId === inputCard.cardId) {
 			console.log(nameOfCard(inputCard) + " already picked.");
 			return true;
@@ -174,8 +181,8 @@ var nameOfCard = function (card) {
 }
 
 function flipCard() {
-	var cardId = this.getAttribute('data-id');
-	var revealedCard = cards[cardId];
+	let cardId = this.getAttribute('data-id');
+	let revealedCard = cards[cardId];
 	revealedCard.cardId = cardId;
 	if (checkPicked(revealedCard)) { 
 		return;
@@ -186,7 +193,9 @@ function flipCard() {
 	console.log(revealedCards);
 	this.setAttribute('src', cards[cardId].cardImage);
 	this.setAttribute('alt', nameOfCard(cards[cardId]));
-	setTimeout(checkForMatch, 250);
+	setTimeout(checkForMatch, 50);
+	// TODO: Find a more elegant way to display the card before checking for a match.
+	// using timeout can mean people flip 3 or more cards over.
 }
 
 var endGame = function () {
