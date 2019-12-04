@@ -10,7 +10,7 @@ a {
 }
 
 a:hover {
-	border-bottom-color: #3b7740;
+	border-bottom-color: #3B7740;
 }
 
 nav a {
@@ -100,7 +100,7 @@ footer a {
 	color: white;
 }
 footer a:hover {
-	border-bottom-color: white;
+	border-bottom-color: #FFFFFFFF;
 }
 
 .copyright {
